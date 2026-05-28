@@ -77,3 +77,206 @@ window.onload = () => {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Greeting</title>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+
+    body{
+      margin:0;
+      overflow:hidden;
+      background:transparent;
+      font-family:Arial, sans-serif;
+    }
+
+    /* Slide-down animation */
+    @keyframes slideDown {
+      from{
+        transform:translateY(-120px);
+        opacity:0;
+      }
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+    }
+
+    /* Blinking effect */
+    @keyframes blink {
+      0%{opacity:1;}
+      50%{opacity:0.5;}
+      100%{opacity:1;}
+    }
+
+    /* Floating balloons */
+    @keyframes floatUp {
+      0%{
+        transform:translateY(100vh);
+      }
+      100%{
+        transform:translateY(-120vh);
+      }
+    }
+
+    /* Main Banner */
+    #birthdayBanner{
+
+      position:relative;
+
+      width:100%;
+      padding:20px;
+
+      text-align:center;
+
+      color:white;
+
+      font-size:32px;
+      font-weight:bold;
+
+      background:
+      linear-gradient(to right,#ff3399,#9933ff);
+
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+
+      animation:
+      slideDown 1.5s ease,
+      blink 1s infinite;
+
+      z-index:10;
+
+      transition:opacity 2s ease;
+    }
+
+    /* Typing text */
+    #typingText{
+      border-right:3px solid white;
+      white-space:nowrap;
+      overflow:hidden;
+      display:inline-block;
+    }
+
+    /* Balloons */
+    .balloon{
+      position:fixed;
+      bottom:-150px;
+      width:60px;
+      height:80px;
+      border-radius:50%;
+      opacity:0.8;
+      animation:floatUp linear infinite;
+      z-index:1;
+    }
+
+    .balloon::after{
+      content:'';
+      position:absolute;
+      width:2px;
+      height:60px;
+      background:white;
+      left:50%;
+      top:80px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- Birthday Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Floating Balloons -->
+<div class="balloon" style="left:5%; background:red; animation-duration:10s;"></div>
+
+<div class="balloon" style="left:20%; background:yellow; animation-duration:12s;"></div>
+
+<div class="balloon" style="left:40%; background:cyan; animation-duration:9s;"></div>
+
+<div class="balloon" style="left:60%; background:pink; animation-duration:11s;"></div>
+
+<div class="balloon" style="left:80%; background:lime; animation-duration:13s;"></div>
+
+<!-- Greeting Banner -->
+<div id="birthdayBanner">
+
+  <span id="typingText"></span>
+
+</div>
+
+<script>
+
+const message =
+"🎂 Happy Birthday to all Birthday Celebrant for June! Wishing you happiness, success and many birthdays to come! 🎉";
+
+let i = 0;
+
+function typingEffect(){
+
+  if(i < message.length){
+
+    document.getElementById("typingText").innerHTML += message.charAt(i);
+
+    i++;
+
+    setTimeout(typingEffect, 80);
+  }
+}
+
+window.onload = () => {
+
+  // Start typing animation
+  typingEffect();
+
+  // Confetti
+  confetti({
+    particleCount:250,
+    spread:120,
+    origin:{ y:0.3 }
+  });
+
+  // Extra side confetti
+  setTimeout(() => {
+
+    confetti({
+      particleCount:120,
+      angle:60,
+      spread:80,
+      origin:{ x:0 }
+    });
+
+    confetti({
+      particleCount:120,
+      angle:120,
+      spread:80,
+      origin:{ x:1 }
+    });
+
+  }, 500);
+
+  // Auto disappear after 20 seconds
+  setTimeout(() => {
+
+    const banner =
+    document.getElementById("birthdayBanner");
+
+    banner.style.opacity = "0";
+
+    setTimeout(() => {
+      banner.style.display = "none";
+    }, 5000);
+
+  }, 30000);
+
+};
+
+</script>
+
+</body>
+</html>
