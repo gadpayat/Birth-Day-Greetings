@@ -3,7 +3,7 @@
 <head>
   <title>Birthday Greeting</title>
 
-  <!-- Confetti Library -->
+  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -27,7 +27,7 @@
       }
     }
 
-    /* Blinking effect */
+    /* Blinking */
     @keyframes blink {
       0%{opacity:1;}
       50%{opacity:0.5;}
@@ -36,69 +36,104 @@
 
     /* Floating balloons */
     @keyframes floatUp {
-      0%{
-        transform:translateY(100vh);
+      from{
+        transform:translateY(120vh);
       }
-      100%{
-        transform:translateY(-120vh);
+      to{
+        transform:translateY(-150vh);
       }
     }
 
-    /* Main Banner */
-    #birthdayBanner{
+    /* Train passing text */
+    @keyframes trainMove {
+
+      0%{
+        transform:translateX(100%);
+      }
+
+      100%{
+        transform:translateX(-100%);
+      }
+    }
+
+    /* Main Container */
+    #container{
 
       position:relative;
 
       width:100%;
-      padding:20px;
+      overflow:hidden;
 
-      text-align:center;
+      transition:opacity 2s ease;
+    }
+
+    /* Banner */
+    #birthdayBanner{
+
+      width:100%;
+
+      padding:20px 0;
+
+      background:
+      linear-gradient(to right,#ff3399,#00ffcc);
 
       color:white;
 
       font-size:32px;
       font-weight:bold;
 
-      background:
-      linear-gradient(to right,#ff3399,#00ffcc);
+      white-space:nowrap;
+      overflow:hidden;
 
       box-shadow:0 4px 15px rgba(0,0,0,0.3);
 
       animation:
       slideDown 1.5s ease,
       blink 1s infinite;
-
-      z-index:10;
-
-      transition:opacity 2s ease;
     }
 
-    /* Typing text */
-    #typingText{
-      border-right:3px solid white;
-      white-space:nowrap;
-      overflow:hidden;
+    /* Moving train text */
+    #movingText{
+
       display:inline-block;
+
+      padding-left:100%;
+
+      animation:
+      trainMove 12s linear infinite;
     }
 
     /* Balloons */
     .balloon{
+
       position:fixed;
+
       bottom:-150px;
+
       width:60px;
       height:80px;
+
       border-radius:50%;
+
       opacity:0.8;
-      animation:floatUp linear infinite;
+
+      animation:
+      floatUp linear infinite;
+
       z-index:1;
     }
 
     .balloon::after{
+
       content:'';
+
       position:absolute;
+
       width:2px;
       height:60px;
+
       background:white;
+
       left:50%;
       top:80px;
     }
@@ -108,61 +143,71 @@
 
 <body>
 
-<!-- Birthday Music -->
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
-</audio>
+<div id="container">
 
-<!-- Floating Balloons -->
-<div class="balloon" style="left:5%; background:red; animation-duration:10s;"></div>
+  <!-- Birthday Music -->
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="balloon" style="left:20%; background:yellow; animation-duration:12s;"></div>
+  <!-- Balloons -->
+  <div class="balloon"
+       style="left:5%;
+       background:red;
+       animation-duration:10s;">
+  </div>
 
-<div class="balloon" style="left:40%; background:cyan; animation-duration:9s;"></div>
+  <div class="balloon"
+       style="left:20%;
+       background:yellow;
+       animation-duration:12s;">
+  </div>
 
-<div class="balloon" style="left:60%; background:pink; animation-duration:11s;"></div>
+  <div class="balloon"
+       style="left:40%;
+       background:cyan;
+       animation-duration:9s;">
+  </div>
 
-<div class="balloon" style="left:80%; background:lime; animation-duration:13s;"></div>
+  <div class="balloon"
+       style="left:60%;
+       background:pink;
+       animation-duration:11s;">
+  </div>
 
-<!-- Greeting Banner -->
-<div id="birthdayBanner">
+  <div class="balloon"
+       style="left:80%;
+       background:lime;
+       animation-duration:13s;">
+  </div>
 
-  <span id="typingText"></span>
+  <!-- Banner -->
+  <div id="birthdayBanner">
+
+    <div id="movingText">
+
+      🎂 Happy Birthday to all Birthday Celebrant for June!
+      Wishing you happiness, love,
+      success, endless blessings, and many more Birthdays to come! 🎈🎊
+
+    </div>
+
+  </div>
 
 </div>
 
 <script>
 
-const message =
-"🎂 Happy Birthday to all Birthday Celebrant for June! Wishing you happiness, success and many birthdays to come! 🎉";
-
-let i = 0;
-
-function typingEffect(){
-
-  if(i < message.length){
-
-    document.getElementById("typingText").innerHTML += message.charAt(i);
-
-    i++;
-
-    setTimeout(typingEffect, 80);
-  }
-}
-
 window.onload = () => {
 
-  // Start typing animation
-  typingEffect();
-
-  // Confetti
+  // Main confetti
   confetti({
     particleCount:250,
     spread:120,
     origin:{ y:0.3 }
   });
 
-  // Extra side confetti
+  // Side confetti
   setTimeout(() => {
 
     confetti({
@@ -181,16 +226,18 @@ window.onload = () => {
 
   }, 500);
 
-  // Auto disappear after 20 seconds
+  // Remove EVERYTHING after 20 seconds
   setTimeout(() => {
 
-    const banner =
-    document.getElementById("birthdayBanner");
+    const container =
+    document.getElementById("container");
 
-    banner.style.opacity = "0";
+    container.style.opacity = "0";
 
     setTimeout(() => {
-      banner.style.display = "none";
+
+      container.style.display = "none";
+
     }, 5000);
 
   }, 30000);
