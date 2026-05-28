@@ -57,10 +57,8 @@
 <body>
 
 <div class="card">
-  <h1>🎂 Happy Birthday Maria! 🎉</h1>
+  <h1>🎂 Happy Birthday to all Birth Day Celebrant for June! 🎉</h1>
 
-  <p>
-    Wishing you joy, love, and happiness today and always!
   </p>
 
   <button onclick="celebrate()">
