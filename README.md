@@ -1,1 +1,109 @@
-# Birth-Day-Greetings
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Greeting</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(to right, #ff66cc, #9933ff);
+      font-family: Arial, sans-serif;
+      overflow:hidden;
+      color:white;
+      text-align:center;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.2);
+      padding:40px;
+      border-radius:20px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    h1{
+      font-size:55px;
+      margin-bottom:10px;
+    }
+
+    p{
+      font-size:24px;
+    }
+
+    button{
+      margin-top:20px;
+      padding:15px 30px;
+      border:none;
+      border-radius:12px;
+      font-size:20px;
+      cursor:pointer;
+      background:white;
+      color:#9933ff;
+      font-weight:bold;
+    }
+
+    button:hover{
+      background:#ffe6ff;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎂 Happy Birthday Maria! 🎉</h1>
+
+  <p>
+    Wishing you joy, love, and happiness today and always!
+  </p>
+
+  <button onclick="celebrate()">
+    Celebrate 🎊
+  </button>
+</div>
+
+<script>
+function celebrate() {
+
+  // popup message
+  alert("🎉 Happy Birthday! 🎂");
+
+  // confetti burst
+  confetti({
+    particleCount: 250,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+
+  // extra side confetti
+  setTimeout(() => {
+    confetti({
+      particleCount: 150,
+      angle: 60,
+      spread: 80,
+      origin: { x: 0 }
+    });
+
+    confetti({
+      particleCount: 150,
+      angle: 120,
+      spread: 80,
+      origin: { x: 1 }
+    });
+  }, 500);
+}
+
+// auto confetti when page opens
+window.onload = () => {
+  celebrate();
+}
+</script>
+
+</body>
+</html>
