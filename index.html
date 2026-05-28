@@ -12,6 +12,13 @@
       background:#f5f5f5;
     }
 
+    /* Blinking animation */
+    @keyframes blink {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
     /* Top greeting banner */
     #birthdayBanner{
       position:fixed;
@@ -22,16 +29,18 @@
       color:white;
       text-align:center;
       padding:18px;
-      font-size:24px;
+      font-size:28px;
       font-weight:bold;
       z-index:9999;
       box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+      /* blinking effect */
+      animation: blink 1s infinite;
 
       /* smooth fade */
       transition: opacity 1.5s ease;
     }
 
-    /* Page content */
     .content{
       padding:100px 20px;
       text-align:center;
@@ -46,35 +55,34 @@
   🎂 Happy Birthday to all Birthday Celebrant for June! Wishing you happiness, success and many birthdays to come! 🎉
 </div>
 
-<!-- Main Content -->
+<!-- Main Page Content -->
 <div class="content">
 
 </div>
 
 <script>
 
-// Confetti when page loads
+// Confetti animation
 window.onload = () => {
 
   confetti({
-    particleCount: 200,
-    spread: 120,
+    particleCount: 300,
+    spread: 150,
     origin: { y: 0.2 }
   });
 
-  // Hide banner after 1 minute
+  // Hide banner after 15 seconds
   setTimeout(() => {
 
     const banner = document.getElementById("birthdayBanner");
 
     banner.style.opacity = "0";
 
-    // remove completely after fade animation
     setTimeout(() => {
       banner.style.display = "none";
     }, 5000);
 
-  }, 60000); // 60000 = 1 minute
+  }, 30000);
 
 };
 
